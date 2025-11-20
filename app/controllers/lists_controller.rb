@@ -11,7 +11,7 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
-      redirect_to @list, notice: "List created successfuly"
+      redirect_to @list, notice: "List successfuly created"
     else
       render :new, status: :unprocessable_content
     end
