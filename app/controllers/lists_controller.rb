@@ -1,32 +1,30 @@
 class ListsController < ApplicationController
-
   def index
     @lists = List.all
   end
-
   def new
     @list = List.new
   end
-
   def create
     @list = List.new(list_params)
     if @list.save
-      redirect_to @list, notice: "List successfuly created"
+        redirect_to @list, notice: "List created successfully"
     else
-      render :new, status: :unprocessable_content
+      render :new, status: :unprocessable_entity
     end
   end
-
   def show
     find_list
   end
-
-  private
-
-  def list_params
-    params.require(:list).permit(:name)
+  def destroy
+    @list = List.find(params[:id])
+    @list.destroy
+    redirect_to lists_path, status: :see_other
   end
-
+  private
+  def list_params
+    params.require(:list).permit(:name, :photo)
+  end
   def find_list
     @list = List.find(params[:id])
   end
